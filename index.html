@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPADE - Society for Practical Applications and Development of Economics</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Cursor Trail */
+        .cursor-trail {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, rgba(139, 123, 216, 0.6), transparent);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            animation: pulse 2s infinite;
+            transition: transform 0.1s ease-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.6; }
+            50% { transform: scale(1.5); opacity: 0.3; }
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 7px 0;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            transform: translateY(0);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .navbar.scrolled {
+            padding: 10px 0;
+            background: rgba(139, 123, 216, 0.95);
+            color: white;
+        }
+
+        .navbar.scrolled .nav-links a,
+        .navbar.scrolled .logo,
+        .navbar.scrolled .mobile-menu span {
+            color: white;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: #2c3e50;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .logo-img {
+            height: 38px;
+            transition: transform 0.3s ease;
+        }
+        .logo-img:hover {
+            transform: scale(1.1);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links li {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            display: block;
+            padding: 5px 10px;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #8b7bd8, #a8a0e6);
+            transition: left 0.4s ease;
+        }
+        
+        .navbar.scrolled .nav-links a::before {
+            background: white;
+        }
+
+        .nav-links a:hover::before {
+            left: 0;
+        }
+
+        .nav-links a:hover {
+            color: #8b7bd8;
+            transform: translateY(-2px);
+        }
+        
+        .navbar.scrolled .nav-links a:hover {
+            color: white;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background: #2c3e50;
+            transition: all 0.3s ease;
+            transform-origin: center;
+        }
+
+        .mobile-menu.active span:nth-child(1) {
+            transform: rotate(45deg) translate(7px, 7px);
+        }
+
+        .mobile-menu.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, #8b7bd8 0%, #a8a0e6 50%, #c8b6e2 100%);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateX(-100px) translateY(-100px); }
+            100% { transform: translateX(100px) translateY(100px); }
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            padding: 0 20px;
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero-content {
+            animation: slideInLeft 1s ease-out;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            background: linear-gradient(45deg, #fff, #f0f8ff, #fff);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: shimmer 3s infinite;
+            word-break: break-word;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: white;
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.5s forwards;
+        }
+
+        .cta-button {
+            background: white;
+            color: #8b7bd8;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: bounceIn 1s ease-out 1s forwards;
+            z-index: 1;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: linear-gradient(45deg, #8b7bd8, #a8a0e6);
+            border-radius: 50%;
+            transition: all 0.4s ease;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
+
+        .cta-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .cta-button:hover {
+            color: white;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-image {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            padding: 40px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            animation: slideInRight 1s ease-out;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 300px;
+            color: rgba(255, 255, 255, 0.7);
+            font-style: italic;
+        }
+
+        .hero-image:hover {
+            transform: translateY(-10px) rotateY(5deg);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hero-image img {
+            width: 100%;
+            border-radius: 20px;
+        }
+
+        /* Animated Background Shapes */
+        .floating-shape {
+            position: absolute;
+            opacity: 0.1;
+            animation: floatShape 15s infinite ease-in-out;
+        }
+
+        .shape-1 {
+            width: 200px;
+            height: 200px;
+            background: white;
+            border-radius: 50%;
+            top: 10%;
+            right: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape-2 {
+            width: 100px;
+            height: 100px;
+            background: white;
+            transform: rotate(45deg);
+            bottom: 20%;
+            left: 5%;
+            animation-delay: -5s;
+        }
+
+        .shape-3 {
+            width: 150px;
+            height: 150px;
+            background: white;
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            top: 60%;
+            right: 15%;
+            animation-delay: -10s;
+        }
+
+        @keyframes floatShape {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            33% { transform: translateY(-20px) rotate(120deg); }
+            66% { transform: translateY(20px) rotate(240deg); }
+        }
+
+        /* Scroll Animations */
+        .fade-in, .slide-left, .slide-right {
+            opacity: 0;
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        .fade-in { transform: translateY(30px); }
+        .slide-left { transform: translateX(-50px); }
+        .slide-right { transform: translateX(50px); }
+
+        .fade-in.visible, .slide-left.visible, .slide-right.visible {
+            opacity: 1;
+            transform: translate(0, 0);
+        }
+
+        /* Sections */
+        .section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Section Titles Animation */
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            color: #2c3e50;
+            margin-bottom: 60px;
+            position: relative;
+            display: block;
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, #8b7bd8, #a8a0e6);
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .section-title.fade-in-right {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .section-title.fade-out-left {
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+        
+        /* About Section */
+        .about {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        /* Aligning the content blocks within their containers */
+        .about-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 60px auto;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            justify-content: center;
+        }
+
+        .about-card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+        }
+
+        .about-card:hover {
+            transform: translateY(-20px) rotateX(5deg);
+            box-shadow: 0 30px 80px rgba(139, 123, 216, 0.3);
+        }
+
+        .about-card h3 {
+            font-size: 1.5rem;
+            color: #8b7bd8;
+            margin-bottom: 20px;
+        }
+        
+        .about-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #8b7bd8;
+        }
+
+        /* Publications Section */
+        .publications {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        }
+
+        .pub-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+            justify-content: center;
+        }
+
+        .pub-card {
+            background: white;
+            color: #333;
+            padding: 40px;
+            border-radius: 30px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .pub-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 80px rgba(139, 123, 216, 0.3);
+        }
+        
+        .pub-card img {
+            width: 100%;
+            max-width: 250px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .pub-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #8b7bd8;
+        }
+
+        .pub-card p {
+            line-height: 1.7;
+        }
+        
+        .pub-card .tag {
+            background: #8b7bd8;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+
+        /* Interactive Stats Counter */
+        .stats-container {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            padding: 80px 0;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+            justify-content: center;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 30px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .stat-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-10px) scale(1.05);
+        }
+
+        .counter {
+            font-size: 3rem;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        /* Events Section */
+        .events {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+        
+        .event-main-card {
+            background: white;
+            padding: 50px;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+        
+        .event-main-card img {
+            width: 100%;
+            border-radius: 20px;
+        }
+        
+        .event-main-card h3 {
+            font-size: 2.5rem;
+            color: #8b7bd8;
+            margin-bottom: 20px;
+        }
+        
+        .event-main-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .event-main-card li {
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%238b7bd8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>') no-repeat left center;
+            padding-left: 35px;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        /* Speakers Section */
+        .speakers {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        }
+
+        .speakers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+            justify-content: center;
+        }
+
+        .speaker-card {
+            background: white;
+            border-radius: 25px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .speaker-card:hover {
+            transform: translateY(-20px) scale(1.02);
+            box-shadow: 0 30px 80px rgba(139, 123, 216, 0.2);
+        }
+        
+        .speaker-img-container {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 30px auto 20px auto;
+            overflow: hidden;
+            border: 5px solid #8b7bd8;
+        }
+        
+        .speaker-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .speaker-content {
+            padding: 0 30px 30px 30px;
+        }
+        
+        .speaker-content h3 {
+            font-size: 1.5rem;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .speaker-content .title {
+            color: #8b7bd8;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        /* Sponsors Section */
+        .sponsors {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+        
+        .sponsors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 40px;
+            align-items: center;
+            justify-items: center;
+            margin-top: 60px;
+            justify-content: center;
+        }
+        
+        .sponsor-logo {
+            transition: all 0.3s ease;
+            filter: grayscale(100%);
+        }
+        
+        .sponsor-logo:hover {
+            filter: grayscale(0%);
+            transform: scale(1.1);
+        }
+        
+        .sponsor-logo img {
+            max-width: 120px;
+            height: auto;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 50%, #4a6741 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23dots)"/></svg>');
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+            position: relative;
+            z-index: 2;
+            justify-content: center;
+        }
+
+        .contact-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 25px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-15px) scale(1.05);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .contact-card h3 {
+            position: relative;
+            z-index: 2;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .contact-card p, .contact-card a {
+            position: relative;
+            z-index: 2;
+            margin: 5px 0;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .contact-card a:hover {
+            text-decoration: underline;
+        }
+
+        /* Social Links */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .social-link {
+            color: white;
+            font-size: 1.5rem;
+            text-decoration: none;
+            padding: 15px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .social-link:hover {
+            transform: scale(1.2) rotateY(180deg);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Keyframe Animations */
+        @keyframes slideInLeft {
+            0% { opacity: 0; transform: translateX(-100px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideInRight {
+            0% { opacity: 0; transform: translateX(100px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes bounceIn {
+            0% { opacity: 0; transform: scale(0.3); }
+            50% { opacity: 1; transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        /* Loading Animation */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #8b7bd8, #a8a0e6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-text {
+            font-size: 2rem;
+            color: white;
+            font-weight: bold;
+            animation: pulse 1.5s infinite;
+        }
+
+        /* Scroll Progress Bar */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #8b7bd8, #a8a0e6);
+            z-index: 9999;
+            transition: width 0.1s ease;
+        }
+        
+        /* Parallax Effect */
+        .parallax-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 120%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="1.5" fill="rgba(255,255,255,0.1)"/></svg>');
+            will-change: transform;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+                gap: 0;
+            }
+            .nav-links.active {
+                max-height: 500px;
+                padding: 20px 0;
+                border-top: 1px solid #eee;
+            }
+            .nav-links a {
+                color: #2c3e50 !important;
+                padding: 15px 30px;
+                text-align: center;
+            }
+            .mobile-menu {
+                display: flex;
+            }
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 30px;
+            }
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            .section-title {
+                font-size: 2.2rem;
+            }
+            .about-grid,
+            .pub-grid,
+            .speakers-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            .event-main-card {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-overlay" id="loading">
+        <div class="loading-text">SPADE</div>
+    </div>
+
+    <div class="scroll-progress" id="scroll-progress"></div>
+
+    <div class="cursor-trail" id="cursor-trail"></div>
+
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#home" class="logo">
+                <img src="" alt="SPADE Logo" class="logo-img">
+            </a>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#publications">Publications</a></li>
+                <li><a href="#events">Events</a></li>
+                <li><a href="#speakers">Speakers</a></li>
+                <li><a href="#sponsors">Sponsors</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="mobile-menu" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero" id="home">
+            <div class="parallax-bg"></div>
+            <div class="floating-shape shape-1"></div>
+            <div class="floating-shape shape-2"></div>
+            <div class="floating-shape shape-3"></div>
+            <div class="hero-container">
+                <div class="hero-content">
+                    <h1>Society for Practical Applications & Development of Economics</h1>
+                    <p>Founded in 2017 at Shivaji College, SPADE is developing economics and elevating research by bridging the gap between theory and real-world solutions.</p>
+                    <a href="#about" class="cta-button">Discover More</a>
+                </div>
+                <div class="hero-image">
+                    <img src="D:\web designing and development\system check\IMG_6725 (1).JPEG" alt="SPADE Team Photo">
+                </div>
+            </div>
+        </section>
+
+        <section class="section about" id="about">
+            <div class="container">
+                <h2 class="section-title fade-in">About SPADE</h2>
+                <div class="about-content fade-in">
+                    <p>SPADE (Society for Practical Applications and Development of Economics) is the economics society of Shivaji College, University of Delhi. Since our inception in 2017, we have been committed to fostering a vibrant community that explores economics beyond the classroom.</p>
+                </div>
+                <div class="about-grid">
+                    <div class="about-card slide-left">
+                        <div class="about-icon">📈</div>
+                        <h3>Events & Workshops</h3>
+                        <p>We organize multiple online and offline events, engaging over 10,000 students and collaborating with 300+ societies from Delhi University, IIMs, and beyond.</p>
+                    </div>
+                    <div class="about-card fade-in">
+                        <div class="about-icon">🎬</div>
+                        <h3>Documentaries</h3>
+                        <p>We have produced 5 thought-provoking documentaries on urgent economic issues, with our 6th currently in production, aiming to spark conversations and inspire change.</p>
+                    </div>
+                    <div class="about-card slide-right">
+                        <div class="about-icon">📚</div>
+                        <h3>Publications</h3>
+                        <p>We proudly publish "Arthamanthan," our annual ISBN-approved research book, and "Tatva," our annual magazine, to showcase student research and perspectives.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section publications" id="publications">
+            <div class="container">
+                <h2 class="section-title fade-in">Our Publications</h2>
+                <div class="pub-grid">
+                    <div class="pub-card fade-in">
+                        <img src="https://via.placeholder.com/300x400/8b7bd8/FFFFFF?text=Tatva+Magazine" alt="Tatva Magazine Cover">
+                        <div class="tag">Annual Magazine</div>
+                        <h3>Tatva</h3>
+                        <p>Our annual magazine, Tatva, is a thoughtful compilation of ideas and perspectives. The latest edition explores Neuroeconomics, featuring 21 research articles from students across 20 institutions.</p>
+                    </div>
+                    <div class="pub-card fade-in" style="transition-delay: 0.2s;">
+                        <img src="https://via.placeholder.com/300x400/8b7bd8/FFFFFF?text=Arthamanthan+Book" alt="Arthamanthan Research Book Cover">
+                        <div class="tag">Annual Research Book</div>
+                        <h3>Arthamanthan</h3>
+                        <p>Our esteemed annual research book, "Arthamanthan," features a diverse collection of research papers on various socio-economic issues in India and has earned an ISBN for the past two years.</p>
+                    </div>
+                    <div class="pub-card fade-in" style="transition-delay: 0.4s;">
+                        <img src="https://via.placeholder.com/300x400/8b7bd8/FFFFFF?text=Gig+Economy+Doc" alt="Documentary Poster">
+                        <div class="tag">Annual Documentary</div>
+                        <h3>The Rise of the Gig Economy</h3>
+                        <p>Our latest documentary explores how short-term, freelance, and contract work is reshaping employment, featuring interviews with eminent personalities and experts.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="stats-container" id="stats-counter">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="counter" data-target="10000">0</span>+
+                        <p>Students Engaged</p>
+                    </div>
+                    <div class="stat-item">
+                        <span class="counter" data-target="300">0</span>+
+                        <p>Collaborations</p>
+                    </div>
+                    <div class="stat-item">
+                        <span class="counter" data-target="5">0</span>
+                        <p>Documentaries Produced</p>
+                    </div>
+                    <div class="stat-item">
+                        <span class="counter" data-target="400">0</span>+
+                        <p>Event Footfall</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section events" id="events">
+            <div class="container">
+                <h2 class="section-title fade-in">Our Flagship Event</h2>
+                <div class="event-main-card fade-in">
+                    <div class="event-main-content">
+                        <h3>Ace of Spade</h3>
+                        <p>Ace of Spade is the highlight of our academic year, featuring various exciting competitions and guest speaker sessions. With a footfall of over 400 students, it's our biggest and most anticipated event.</p>
+                        <ul>
+                            <li><strong>Ace the Case:</strong> National Level Case Study Competition.</li>
+                            <li><strong>Inflation Auction:</strong> A thrilling bidding competition.</li>
+                            <li><strong>Brand Wars:</strong> A battle of marketing and strategy.</li>
+                        </ul>
+                    </div>
+                    <div class="event-main-image">
+                        <img src="https://via.placeholder.com/500/d7cde5/555555?text=Ace+of+Spade+Event" alt="Ace of Spade Event Photo">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section speakers" id="speakers">
+            <div class="container">
+                <h2 class="section-title fade-in">Past Speakers</h2>
+                <div class="speakers-grid">
+                    <div class="speaker-card fade-in">
+                        <div class="speaker-img-container"><img src="https://via.placeholder.com/150/d7cde5/555555?text=Nikhil+Gaur" alt="Nikhil Gaur"></div>
+                        <div class="speaker-content">
+                            <h3>Mr. Nikhil Gaur</h3>
+                            <p class="title">Founder, Hive School</p>
+                        </div>
+                    </div>
+                    <div class="speaker-card fade-in">
+                        <div class="speaker-img-container"><img src="https://via.placeholder.com/150/d7cde5/555555?text=Ajitesh+Gupta" alt="Ajitesh Gupta"></div>
+                        <div class="speaker-content">
+                            <h3>Mr. Ajitesh Gupta</h3>
+                            <p class="title">Co-founder, Crowwd</p>
+                        </div>
+                    </div>
+                    <div class="speaker-card fade-in">
+                        <div class="speaker-img-container"><img src="https://via.placeholder.com/150/d7cde5/555555?text=Meenakshi+Aggarwal" alt="Meenakshi Aggarwal"></div>
+                        <div class="speaker-content">
+                            <h3>Ms. Meenakshi Aggarwal</h3>
+                            <p class="title">Lead Mentor, IMS</p>
+                        </div>
+                    </div>
+                    <div class="speaker-card fade-in">
+                        <div class="speaker-img-container"><img src="https://via.placeholder.com/150/d7cde5/555555?text=Charchit+Kurra" alt="Charchit Kurra"></div>
+                        <div class="speaker-content">
+                            <h3>Mr. Charchit Kurra</h3>
+                            <p class="title">Associate, Bain & Company</p>
+                        </div>
+                    </div>
+                    <div class="speaker-card fade-in">
+                        <div class="speaker-img-container"><img src="https://via.placeholder.com/150/d7cde5/555555?text=CA+Parag+Gupta" alt="CA Parag Gupta"></div>
+                        <div class="speaker-content">
+                            <h3>CA Parag Gupta</h3>
+                            <p class="title">Founder, RKG Institute</p>
+                        </div>
+                    </div>
+                    <div class="speaker-card fade-in">
+                        <div class="speaker-img-container"><img src="https://via.placeholder.com/150/d7cde5/555555?text=Sandeep+Jangra" alt="Sandeep Jangra"></div>
+                        <div class="speaker-content">
+                            <h3>Mr. Sandeep Jangra</h3>
+                            <p class="title">Founder, Pizza Galleria</p>
+                        </div>
+                    </div>
+                    <div class="speaker-card fade-in">
+                        <div class="speaker-img-container"><img src="https://via.placeholder.com/150/d7cde5/555555?text=Pratik+Chainani" alt="Pratik Chainani"></div>
+                        <div class="speaker-content">
+                            <h3>Mr. Pratik Chainani</h3>
+                            <p class="title">Larsen & Toubro</p>
+                        </div>
+                    </div>
+                    <div class="speaker-card fade-in">
+                        <div class="speaker-img-container"><img src="https://via.placeholder.com/150/d7cde5/555555?text=Dr+Srishti+Sharma" alt="Dr. Srishti Sharma"></div>
+                        <div class="speaker-content">
+                            <h3>Dr. Srishti Sharma</h3>
+                            <p class="title">Founder, Shakti Wearables</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section sponsors" id="sponsors">
+            <div class="container">
+                <h2 class="section-title fade-in">Past Sponsors</h2>
+                <div class="sponsors-grid">
+                    <div class="sponsor-logo fade-in"><img src="https://via.placeholder.com/150x80/d7cde5/555555?text=Ditto" alt="Ditto Insurance"></div>
+                    <div class="sponsor-logo fade-in"><img src="https://via.placeholder.com/150x80/d7cde5/555555?text=Campus+Diary" alt="Campus Diary"></div>
+                    <div class="sponsor-logo fade-in"><img src="https://via.placeholder.com/150x80/d7cde5/555555?text=Interview+Buddy" alt="Interview Buddy"></div>
+                    <div class="sponsor-logo fade-in"><img src="https://via.placeholder.com/150x80/d7cde5/555555?text=DU+Buddies" alt="DU Buddies"></div>
+                    <div class="sponsor-logo fade-in"><img src="https://via.placeholder.com/150x80/d7cde5/555555?text=Unstop" alt="Unstop"></div>
+                    <div class="sponsor-logo fade-in"><img src="https://via.placeholder.com/150x80/d7cde5/555555?text=The+Hidden+Hour" alt="The Hidden Hour"></div>
+                    <div class="sponsor-logo fade-in"><img src="https://via.placeholder.com/150x80/d7cde5/555555?text=StartupNews+Fyi" alt="StartupNews Fyi"></div>
+                    <div class="sponsor-logo fade-in"><img src="https://via.placeholder.com/150x80/d7cde5/555555?text=Rage+Room" alt="Rage Room"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section contact" id="contact">
+            <div class="container">
+                <h2 class="section-title fade-in" style="color:white;">Get in Touch</h2>
+                <div class="contact-grid">
+                    <div class="contact-card fade-in">
+                        <h3>Leadership</h3>
+                        <p><strong>Mehul Thapar</strong> (President): <a href="tel:+918076739390">+91 80767 39390</a></p>
+                        <p><strong>Khushi Halder</strong> (Vice President): <a href="tel:+919365744585">+91 93657 44585</a></p>
+                    </div>
+                    <div class="contact-card fade-in" style="transition-delay: 0.2s;">
+                        <h3>Public Relations</h3>
+                        <p><strong>Shrishti Pandey</strong> (PR Head): <a href="tel:+918527189449">+91 85271 89449</a></p>
+                        <p>Email: <a href="mailto:spade.pr2024@gmail.com">spade.pr2024@gmail.com</a></p>
+                    </div>
+                    <div class="contact-card fade-in" style="transition-delay: 0.4s;">
+                        <h3>General Inquiries</h3>
+                        <p>Email us for any questions or collaborations.</p>
+                        <p><a href="mailto:reachoutspade@gmail.com">reachoutspade@gmail.com</a></p>
+                    </div>
+                </div>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/spade.shivaji" target="_blank" class="social-link">IG</a>
+                    <a href="https://www.linkedin.com/company/spadeshivaji" target="_blank" class="social-link">in</a>
+                    <a href="https://www.youtube.com/@spadeshivaji" target="_blank" class="social-link">YT</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer style="text-align: center; padding: 20px; background: #2c3e50; color: #aaa;">
+        <p>&copy; 2025 SPADE Shivaji College. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const loadingOverlay = document.getElementById('loading');
+            const cursorTrail = document.getElementById('cursor-trail');
+            const navbar = document.getElementById('navbar');
+            const scrollProgress = document.getElementById('scroll-progress');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const navLinks = document.getElementById('nav-links');
+            const parallaxBg = document.querySelector('.parallax-bg');
+
+            // --- Loading Overlay ---
+            window.addEventListener('load', () => {
+                loadingOverlay.style.opacity = '0';
+                setTimeout(() => {
+                    loadingOverlay.style.display = 'none';
+                }, 500);
+            });
+
+            // --- Cursor Trail ---
+            document.addEventListener('mousemove', e => {
+                cursorTrail.style.transform = `translate(${e.clientX - 10}px, ${e.clientY - 10}px)`;
+            });
+
+            // --- Navbar & Scroll Progress ---
+            window.addEventListener('scroll', () => {
+                // Navbar style change
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+
+                // Scroll Progress Bar
+                const scrollTop = document.documentElement.scrollTop;
+                const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrollPercentage = (scrollTop / scrollHeight) * 100;
+                scrollProgress.style.width = scrollPercentage + '%';
+                
+                // Parallax Effect
+                if (parallaxBg) {
+                    parallaxBg.style.transform = `translateY(${window.scrollY * 0.4}px)`;
+                }
+            });
+
+            // --- Mobile Menu Toggle ---
+            mobileMenu.addEventListener('click', () => {
+                mobileMenu.classList.toggle('active');
+                navLinks.classList.toggle('active');
+            });
+
+            // --- Smooth Scrolling for Nav Links & Close Mobile Menu ---
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    if (navLinks.classList.contains('active')) {
+                        mobileMenu.classList.remove('active');
+                        navLinks.classList.remove('active');
+                    }
+
+                    const targetElement = document.querySelector(this.getAttribute('href'));
+                    if(targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // --- Intersection Observer for Scroll Animations ---
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observerCallback = (entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            };
+
+            const scrollObserver = new IntersectionObserver(observerCallback, observerOptions);
+            const elementsToAnimate = document.querySelectorAll('.fade-in, .slide-left, .slide-right');
+            elementsToAnimate.forEach(el => scrollObserver.observe(el));
+
+            // --- Stats Counter Animation ---
+            const statsSection = document.getElementById('stats-counter');
+            let hasCounterAnimated = false;
+
+            const countUp = () => {
+                if (hasCounterAnimated) return;
+                hasCounterAnimated = true;
+
+                document.querySelectorAll('.counter').forEach(counter => {
+                    counter.innerText = '0';
+                    const target = +counter.getAttribute('data-target');
+                    const duration = 2000;
+                    const stepTime = 16;
+                    const totalSteps = duration / stepTime;
+                    const increment = target / totalSteps;
+
+                    let current = 0;
+                    const updateCount = () => {
+                        current += increment;
+                        if (current < target) {
+                            counter.innerText = Math.ceil(current);
+                            requestAnimationFrame(updateCount);
+                        } else {
+                            counter.innerText = target;
+                        }
+                    };
+                    requestAnimationFrame(updateCount);
+                });
+            };
+            
+            const counterObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        countUp();
+                        observer.unobserve(statsSection);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            if (statsSection) {
+                counterObserver.observe(statsSection);
+            }
+
+            // --- Dynamic Heading Animations ---
+            let lastScrollTop = 0;
+            const headings = document.querySelectorAll('.section-title');
+
+            window.addEventListener('scroll', function() {
+                let currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                const isScrollingDown = currentScrollTop > lastScrollTop;
+                lastScrollTop = currentScrollTop;
+
+                headings.forEach(heading => {
+                    const rect = heading.getBoundingClientRect();
+                    const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+
+                    if (isVisible && isScrollingDown && !heading.classList.contains('fade-in-right')) {
+                        heading.classList.remove('fade-out-left');
+                        heading.classList.add('fade-in-right');
+                    } else if (isVisible && !isScrollingDown && heading.classList.contains('fade-in-right')) {
+                        heading.classList.remove('fade-in-right');
+                        heading.classList.add('fade-out-left');
+                    } else if (!isVisible) {
+                        heading.classList.remove('fade-in-right', 'fade-out-left');
+                    }
+                });
+            });
+
+        });
+    </script>
+</body>
+</html>
