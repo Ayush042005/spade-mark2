@@ -315,39 +315,80 @@
             z-index: 2;
         }
 
+        /* --- CARD FLIP STYLES --- */
         .team-card {
-            background: var(--white);
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow-heavy);
-            transition: all var(--transition-fast);
-            text-align: center;
-            cursor: pointer;
-            border: 1px solid var(--primary-light-color);
+            background-color: transparent;
+            min-height: 350px; /* Give cards a consistent height */
+            perspective: 1000px; /* 3D effect */
+            border: none;
+            box-shadow: none;
+        }
+
+        .team-card-inner {
             position: relative;
-            overflow: hidden;
-            padding-bottom: 2rem;
-        }
-
-        .team-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(100, 110, 104, 0.15);
-        }
-
-        .team-card::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: -150%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to right, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%);
-            transform: skewX(-25deg);
-            transition: left 0.8s;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+            box-shadow: var(--shadow-heavy);
+            border-radius: var(--border-radius);
         }
 
-        .team-card:hover::before {
-            left: 150%;
+        .team-card:hover .team-card-inner {
+            transform: rotateY(180deg);
         }
+
+        .team-card-front, .team-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden; /* Safari */
+            backface-visibility: hidden;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--primary-light-color);
+        }
+
+        .team-card-front {
+            background-color: var(--white);
+        }
+
+        .team-card-back {
+            background-color: var(--primary-color);
+            color: var(--white);
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .team-card-back blockquote {
+            font-size: 0.9rem;
+            font-style: italic;
+            border-left: 3px solid var(--primary-light-color);
+            padding-left: 15px;
+            margin-bottom: 20px;
+        }
+
+        .linkedin-btn {
+            display: inline-block;
+            color: var(--white);
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 10px 15px;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: background-color var(--transition-fast), transform var(--transition-fast);
+        }
+        .linkedin-btn:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+        .linkedin-btn i {
+            margin-right: 8px;
+        }
+        /* --- END CARD FLIP STYLES --- */
 
         .team-img-container {
             width: 150px;
@@ -372,7 +413,7 @@
         }
 
         .team-content {
-            padding: 0 1.5rem;
+            padding: 0 1.5rem 2rem;
         }
 
         .team-content h3 {
@@ -456,73 +497,182 @@
 
         <section class="section team" id="team">
             <ul class="animated-shapes">
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
+                <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
             </ul>
             <div class="container">
                 <h2 class="section-title fade-in-left">OUR TEAM</h2>
                 <div class="team-grid stagger-children">
+                    
                     <!-- CORE TEAM MEMBERS -->
                     <div class="team-card stagger-item" style="transition-delay: 0.1s;">
-                        <div class="team-img-container"><img src="galleryimg/President.jpeg" alt="Mehul Thapar"></div>
-                        <div class="team-content"><h3>Mehul Thapar</h3><p class="post">President</p></div>
+                        <div class="team-card-inner">
+                            <div class="team-card-front">
+                                <div class="team-img-container"><img src="galleryimg/President.jpeg" alt="Mehul Thapar"></div>
+                                <div class="team-content"><h3>Mehul Thapar</h3><p class="post">President</p></div>
+                            </div>
+                            <div class="team-card-back">
+                                <blockquote>"A quote about economics or leadership goes here."</blockquote>
+                                <a href="#" target="_blank" class="linkedin-btn"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+                            </div>
+                        </div>
                     </div>
+
                     <div class="team-card stagger-item" style="transition-delay: 0.2s;">
-                        <div class="team-img-container"><img src="https://placehold.co/200x200/d1dede/101935?text=Khushi" alt="Khushi Halder"></div>
-                        <div class="team-content"><h3>Khushi Halder</h3><p class="post">Vice President</p></div>
+                        <div class="team-card-inner">
+                            <div class="team-card-front">
+                                <div class="team-img-container"><img src="https://placehold.co/200x200/d1dede/101935?text=Khushi" alt="Khushi Halder"></div>
+                                <div class="team-content"><h3>Khushi Halder</h3><p class="post">Vice President</p></div>
+                            </div>
+                            <div class="team-card-back">
+                                <blockquote>"A quote about economics or leadership goes here."</blockquote>
+                                <a href="#" target="_blank" class="linkedin-btn"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+                            </div>
+                        </div>
                     </div>
+
                     <div class="team-card stagger-item" style="transition-delay: 0.3s;">
-                        <div class="team-img-container"><img src="https://placehold.co/200x200/d1dede/101935?text=Ayush" alt="Ayush Rathaur"></div>
-                        <div class="team-content"><h3>Ayush Rathaur</h3><p class="post">General Secretary</p></div>
+                        <div class="team-card-inner">
+                            <div class="team-card-front">
+                                <div class="team-img-container"><img src="https://placehold.co/200x200/d1dede/101935?text=Ayush" alt="Ayush Rathaur"></div>
+                                <div class="team-content"><h3>Ayush Rathaur</h3><p class="post">General Secretary</p></div>
+                            </div>
+                            <div class="team-card-back">
+                                <blockquote>"A quote about economics or leadership goes here."</blockquote>
+                                <a href="#" target="_blank" class="linkedin-btn"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+                            </div>
+                        </div>
                     </div>
+
                     <div class="team-card stagger-item" style="transition-delay: 0.4s;">
-                        <div class="team-img-container"><img src="https://placehold.co/200x200/d1dede/101935?text=Aditya" alt="Aditya Pandey"></div>
-                        <div class="team-content"><h3>Aditya Pandey</h3><p class="post">Treasurer</p></div>
+                        <div class="team-card-inner">
+                            <div class="team-card-front">
+                                <div class="team-img-container"><img src="https://placehold.co/200x200/d1dede/101935?text=Aditya" alt="Aditya Pandey"></div>
+                                <div class="team-content"><h3>Aditya Pandey</h3><p class="post">Treasurer</p></div>
+                            </div>
+                            <div class="team-card-back">
+                                <blockquote>"A quote about economics or leadership goes here."</blockquote>
+                                <a href="#" target="_blank" class="linkedin-btn"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+                            </div>
+                        </div>
                     </div>
+
                     <div class="team-card stagger-item" style="transition-delay: 0.1s;">
-                        <div class="team-img-container"><img src="https://placehold.co/200x200/d1dede/101935?text=Diya" alt="Diya Jain"></div>
-                        <div class="team-content"><h3>Diya Jain</h3><p class="post">Advisor</p></div>
+                        <div class="team-card-inner">
+                            <div class="team-card-front">
+                                <div class="team-img-container"><img src="https://placehold.co/200x200/d1dede/101935?text=Diya" alt="Diya Jain"></div>
+                                <div class="team-content"><h3>Diya Jain</h3><p class="post">Advisor</p></div>
+                            </div>
+                            <div class="team-card-back">
+                                <blockquote>"A quote about economics or leadership goes here."</blockquote>
+                                <a href="#" target="_blank" class="linkedin-btn"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+                            </div>
+                        </div>
                     </div>
+
                     <div class="team-card stagger-item" style="transition-delay: 0.2s;">
-                        <div class="team-img-container"><img src="https://placehold.co/200x200/d1dede/101935?text=Mudit" alt="Mudit Mehta"></div>
-                        <div class="team-content"><h3>Mudit Mehta</h3><p class="post">Student Coordinator</p></div>
+                        <div class="team-card-inner">
+                            <div class="team-card-front">
+                                <div class="team-img-container"><img src="https://placehold.co/200x200/d1dede/101935?text=Mudit" alt="Mudit Mehta"></div>
+                                <div class="team-content"><h3>Mudit Mehta</h3><p class="post">Student Coordinator</p></div>
+                            </div>
+                            <div class="team-card-back">
+                                <blockquote>"A quote about economics or leadership goes here."</blockquote>
+                                <a href="#" target="_blank" class="linkedin-btn"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+                            </div>
+                        </div>
                     </div>
+
                     <div class="team-card stagger-item" style="transition-delay: 0.3s;">
-                        <div class="team-img-container"><img src="https://placehold.co/200x200/d1dede/101935?text=Shrishti" alt="Shrishti Pandey"></div>
-                        <div class="team-content"><h3>Shrishti Pandey</h3><p class="post">Public Relations Head & Core</p></div>
+                        <div class="team-card-inner">
+                            <div class="team-card-front">
+                                <div class="team-img-container"><img src="https://placehold.co/200x200/d1dede/101935?text=Shrishti" alt="Shrishti Pandey"></div>
+                                <div class="team-content"><h3>Shrishti Pandey</h3><p class="post">Public Relations Head & Core</p></div>
+                            </div>
+                            <div class="team-card-back">
+                                <blockquote>"A quote about economics or leadership goes here."</blockquote>
+                                <a href="#" target="_blank" class="linkedin-btn"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+                            </div>
+                        </div>
                     </div>
+
                      <div class="team-card stagger-item" style="transition-delay: 0.4s;">
-                        <div class="team-img-container"><img src="https://placehold.co/200x200/d1dede/101935?text=Kirti" alt="Kirti Verma"></div>
-                        <div class="team-content"><h3>Kirti Verma</h3><p class="post">Public Relations Head & Core</p></div>
+                        <div class="team-card-inner">
+                            <div class="team-card-front">
+                                <div class="team-img-container"><img src="https://placehold.co/200x200/d1dede/101935?text=Kirti" alt="Kirti Verma"></div>
+                                <div class="team-content"><h3>Kirti Verma</h3><p class="post">Public Relations Head & Core</p></div>
+                            </div>
+                            <div class="team-card-back">
+                                <blockquote>"A quote about economics or leadership goes here."</blockquote>
+                                <a href="#" target="_blank" class="linkedin-btn"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+                            </div>
+                        </div>
                     </div>
+
                     <div class="team-card stagger-item" style="transition-delay: 0.1s;">
-                        <div class="team-img-container"><img src="https://placehold.co/200x200/d1dede/101935?text=Kanika" alt="Kanika Singh"></div>
-                        <div class="team-content"><h3>Kanika Singh</h3><p class="post">Social Media Head</p></div>
+                        <div class="team-card-inner">
+                            <div class="team-card-front">
+                                <div class="team-img-container"><img src="https://placehold.co/200x200/d1dede/101935?text=Kanika" alt="Kanika Singh"></div>
+                                <div class="team-content"><h3>Kanika Singh</h3><p class="post">Social Media Head</p></div>
+                            </div>
+                            <div class="team-card-back">
+                                <blockquote>"A quote about economics or leadership goes here."</blockquote>
+                                <a href="#" target="_blank" class="linkedin-btn"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+                            </div>
+                        </div>
                     </div>
+
                     <div class="team-card stagger-item" style="transition-delay: 0.2s;">
-                        <div class="team-img-container"><img src="https://placehold.co/200x200/d1dede/101935?text=Saloni" alt="Saloni Gandhi"></div>
-                        <div class="team-content"><h3>Saloni Gandhi</h3><p class="post">Editorial Head</p></div>
+                        <div class="team-card-inner">
+                            <div class="team-card-front">
+                                <div class="team-img-container"><img src="https://placehold.co/200x200/d1dede/101935?text=Saloni" alt="Saloni Gandhi"></div>
+                                <div class="team-content"><h3>Saloni Gandhi</h3><p class="post">Editorial Head</p></div>
+                            </div>
+                            <div class="team-card-back">
+                                <blockquote>"A quote about economics or leadership goes here."</blockquote>
+                                <a href="#" target="_blank" class="linkedin-btn"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+                            </div>
+                        </div>
                     </div>
+
                     <div class="team-card stagger-item" style="transition-delay: 0.3s;">
-                        <div class="team-img-container"><img src="https://placehold.co/200x200/d1dede/101935?text=Anjali" alt="Anjali Garg"></div>
-                        <div class="team-content"><h3>Anjali Garg</h3><p class="post">Technical Head</p></div>
+                        <div class="team-card-inner">
+                            <div class="team-card-front">
+                                <div class="team-img-container"><img src="https://placehold.co/200x200/d1dede/101935?text=Anjali" alt="Anjali Garg"></div>
+                                <div class="team-content"><h3>Anjali Garg</h3><p class="post">Technical Head</p></div>
+                            </div>
+                            <div class="team-card-back">
+                                <blockquote>"A quote about economics or leadership goes here."</blockquote>
+                                <a href="#" target="_blank" class="linkedin-btn"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+                            </div>
+                        </div>
                     </div>
+
                     <div class="team-card stagger-item" style="transition-delay: 0.4s;">
-                        <div class="team-img-container"><img src="https://placehold.co/200x200/d1dede/101935?text=Priyanshi" alt="Priyanshi Gupta"></div>
-                        <div class="team-content"><h3>Priyanshi Gupta</h3><p class="post">Research Head & Core</p></div>
+                        <div class="team-card-inner">
+                            <div class="team-card-front">
+                                <div class="team-img-container"><img src="https://placehold.co/200x200/d1dede/101935?text=Priyanshi" alt="Priyanshi Gupta"></div>
+                                <div class="team-content"><h3>Priyanshi Gupta</h3><p class="post">Research Head & Core</p></div>
+                            </div>
+                            <div class="team-card-back">
+                                <blockquote>"A quote about economics or leadership goes here."</blockquote>
+                                <a href="#" target="_blank" class="linkedin-btn"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+                            </div>
+                        </div>
                     </div>
+
                     <div class="team-card stagger-item" style="transition-delay: 0.1s;">
-                        <div class="team-img-container"><img src="https://placehold.co/200x200/d1dede/101935?text=Simondeep" alt="Simondeep Kaur"></div>
-                        <div class="team-content"><h3>Simondeep Kaur</h3><p class="post">Research Head & Core</p></div>
+                        <div class="team-card-inner">
+                            <div class="team-card-front">
+                                <div class="team-img-container"><img src="https://placehold.co/200x200/d1dede/101935?text=Simondeep" alt="Simondeep Kaur"></div>
+                                <div class="team-content"><h3>Simondeep Kaur</h3><p class="post">Research Head & Core</p></div>
+                            </div>
+                            <div class="team-card-back">
+                                <blockquote>"A quote about economics or leadership goes here."</blockquote>
+                                <a href="#" target="_blank" class="linkedin-btn"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+                            </div>
+                        </div>
                     </div>
+
                 </div>
             </div>
         </section>
