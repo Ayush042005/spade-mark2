@@ -175,7 +175,7 @@
         .nav-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
         
         /* Section Title */
-        .section-title { text-align: center; font-size: 2.5rem; color: var(--text-color); margin-bottom: 4rem; position: relative; }
+        .section-title { text-align: center; font-size: 2.5rem; color: var(--text-color); margin-bottom: 4rem; position: relative; z-index: 2; }
         .section-title::after {
             content: '';
             position: absolute;
@@ -265,6 +265,42 @@
             100% { transform: translateX(-50%); }
         }
 
+        /* Animated Shapes SVG Background */
+        .animated-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+        .animated-shapes li {
+            position: absolute;
+            display: block;
+            list-style: none;
+            width: 20px;
+            height: 20px;
+            background: rgba(209, 222, 222, 0.5); /* Made slightly more visible */
+            animation: animate-shapes 25s linear infinite;
+            bottom: -150px;
+        }
+        .animated-shapes li:nth-child(1) { left: 25%; width: 80px; height: 80px; animation-delay: 0s; }
+        .animated-shapes li:nth-child(2) { left: 10%; width: 20px; height: 20px; animation-delay: 2s; animation-duration: 12s; }
+        .animated-shapes li:nth-child(3) { left: 70%; width: 20px; height: 20px; animation-delay: 4s; }
+        .animated-shapes li:nth-child(4) { left: 40%; width: 60px; height: 60px; animation-delay: 0s; animation-duration: 18s; }
+        .animated-shapes li:nth-child(5) { left: 65%; width: 20px; height: 20px; animation-delay: 0s; }
+        .animated-shapes li:nth-child(6) { left: 75%; width: 110px; height: 110px; animation-delay: 3s; }
+        .animated-shapes li:nth-child(7) { left: 35%; width: 150px; height: 150px; animation-delay: 7s; }
+        .animated-shapes li:nth-child(8) { left: 50%; width: 25px; height: 25px; animation-delay: 15s; animation-duration: 45s; }
+        .animated-shapes li:nth-child(9) { left: 20%; width: 15px; height: 15px; animation-delay: 2s; animation-duration: 35s; }
+        .animated-shapes li:nth-child(10) { left: 85%; width: 150px; height: 150px; animation-delay: 0s; animation-duration: 11s; }
+
+        @keyframes animate-shapes {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; border-radius: 0; }
+            100% { transform: translateY(-1000px) rotate(720deg); opacity: 0; border-radius: 50%; }
+        }
+
         /* Team Section */
         .team {
             background: var(--background-light);
@@ -275,6 +311,8 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2.5rem;
+            position: relative; /* Ensure cards are on top of shapes */
+            z-index: 2;
         }
 
         .team-card {
@@ -389,6 +427,13 @@
                 <ul class="nav-list">
                     <!-- Links now point to sections within your main file -->
                     <li><a href="index.html#home" class="nav-link">Home</a></li>
+                    <li><a href="index.html#about" class="nav-link">About</a></li>
+                    <li><a href="index.html#publications" class="nav-link">Publications</a></li>
+                    <li><a href="gallery.html" class="nav-link active">Gallery</a></li>
+                    <li><a href="index.html#events" class="nav-link">Events</a></li>
+                    <li><a href="index.html#speakers" class="nav-link">Speakers</a></li>
+                    <li><a href="index.html#sponsors" class="nav-link">Sponsors</a></li>
+                    <li><a href="index.html#contact" class="nav-link">Contact</a></li>
                 </ul>
             </nav>
             <div class="nav-toggle" id="nav-toggle">
@@ -410,6 +455,18 @@
         </section>
 
         <section class="section team" id="team">
+            <ul class="animated-shapes">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
             <div class="container">
                 <h2 class="section-title fade-in-left">OUR TEAM</h2>
                 <div class="team-grid stagger-children">
