@@ -617,7 +617,6 @@
             </a>
             <nav class="nav" id="nav-menu">
                 <ul class="nav-list">
-                    <li><a href="#home" class="nav-link">Home</a></li>
                     <li><a href="#about" class="nav-link">About</a></li>
                     <li><a href="gallery.html" class="nav-link">Our Team</a></li>
                     <li><a href="#publications" class="nav-link">Publications</a></li>
@@ -653,11 +652,34 @@
             <div class="container hero-container">
                 <div class="hero-content fade-in-up">
                     <h1 class="hero-title">Society for Practical Applications & Development of Economics</h1>
-                    <p class="hero-subtitle">Founded in 2017 at Shivaji College, SPADE is developing economics and elevating research by bridging the gap between theory and real-world solutions.</p>
+                    <svg class="hero-subtitle-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 100" preserveAspectRatio="xMidYMid meet" style="width: 100%; max-width: 500px; height: auto;">
+                        <defs>
+                            <linearGradient id="gradientText" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" style="stop-color: #ff7eb3; stop-opacity: 1;" />
+                                <stop offset="50%" style="stop-color: #ff758c; stop-opacity: 1;" />
+                                <stop offset="100%" style="stop-color: #ff6a6a; stop-opacity: 1;" />
+                            </linearGradient>
+                            <filter id="glowEffect" x="-50%" y="-50%" width="200%" height="200%">
+                                <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur" />
+                                <feMerge>
+                                    <feMergeNode in="blur" />
+                                    <feMergeNode in="SourceGraphic" />
+                                </feMerge>
+                            </filter>
+                        </defs>
+                        <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" font-family="Poppins, sans-serif" font-size="53" fill="url(#gradientText)" filter="url(#glowEffect)">
+                            Redefining Notions
+                        </text>
+                    </svg>
                     <a href="#about" class="btn btn-primary">Discover More</a>
                 </div>
                 <div class="hero-image slide-in-right">
                     <img src="images/spadeteam.JPEG" alt="SPADE Team Photo">
+                </div>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/spade.shivaji" target="_blank" class="social-link" aria-label="Follow us on Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/company/spadeshivaji" target="_blank" class="social-link" aria-label="Connect with us on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://www.youtube.com/@spadeshivaji" target="_blank" class="social-link" aria-label="Subscribe to our YouTube channel"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
             <div class="hero-divider-container">
@@ -854,11 +876,6 @@
                         <p>Email us for any questions or collaborations.</p>
                         <p><a href="mailto:reachoutspade@gmail.com">reachoutspade@gmail.com</a></p>
                     </div>
-                </div>
-                <div class="social-links">
-                    <a href="https://www.instagram.com/spade.shivaji" target="_blank" class="social-link" aria-label="Follow us on Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="https://www.linkedin.com/company/spadeshivaji" target="_blank" class="social-link" aria-label="Connect with us on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="https://www.youtube.com/@spadeshivaji" target="_blank" class="social-link" aria-label="Subscribe to our YouTube channel"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
         </section>
