@@ -292,10 +292,6 @@
         .animated-shapes li:nth-child(4) { left: 40%; width: 60px; height: 60px; animation-delay: 0s; animation-duration: 18s; }
         .animated-shapes li:nth-child(5) { left: 65%; width: 20px; height: 20px; animation-delay: 0s; }
         .animated-shapes li:nth-child(6) { left: 75%; width: 110px; height: 110px; animation-delay: 3s; }
-        .animated-shapes li:nth-child(7) { left: 35%; width: 150px; height: 150px; animation-delay: 7s; }
-        .animated-shapes li:nth-child(8) { left: 50%; width: 25px; height: 25px; animation-delay: 15s; animation-duration: 45s; }
-        .animated-shapes li:nth-child(9) { left: 20%; width: 15px; height: 15px; animation-delay: 2s; animation-duration: 35s; }
-        .animated-shapes li:nth-child(10) { left: 85%; width: 150px; height: 150px; animation-delay: 0s; animation-duration: 11s; }
 
         @keyframes animate-shapes {
             0% { transform: translateY(0) rotate(0deg); opacity: 1; border-radius: 0; }
@@ -308,6 +304,67 @@
             padding-top: 50px;
         }
 
+        /* President Section */
+        .president-section {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: center;
+            margin-bottom: 5rem;
+            position: relative;
+            z-index: 2;
+        }
+        .president-card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-heavy);
+            border: 1px solid var(--primary-light-color);
+            padding: 2rem;
+            text-align: center;
+        }
+        .president-img-container {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            overflow: hidden;
+            border: 5px solid var(--primary-color);
+        }
+        .president-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .president-card h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+        .president-card .post { font-size: 1.1rem; color: var(--primary-color); font-weight: 600; }
+
+        .president-words {
+            padding: 2rem;
+        }
+        .president-words h3 {
+            font-size: 2rem;
+            color: var(--text-color);
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        .president-words h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary-color);
+        }
+        .president-words blockquote {
+            font-size: 1.1rem;
+            font-style: italic;
+            border-left: 4px solid var(--primary-light-color);
+            padding-left: 1.5rem;
+            margin: 0;
+        }
+        
         .team-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -448,6 +505,7 @@
             .section { padding: 60px 0; }
             .section-title { font-size: 2rem; margin-bottom: 3rem; }
             .team { padding-top: 30px; }
+            .president-section { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -472,7 +530,7 @@
                     <li><a href="index.html#about" class="nav-link">About</a></li>
                     <li><a href="index.html#publications" class="nav-link">Publications</a></li>
                     <li><a href="index.html#events" class="nav-link">Events</a></li>
-                     <li><a href="newsletter.html" class="nav-link">NewsLetter</a></li>
+                     <li><a href="NewsLetter" class="nav-link">NewsLetter</a></li>
                     <li><a href="index.html#speakers" class="nav-link">Speakers</a></li>
                     <li><a href="index.html#sponsors" class="nav-link">Sponsors</a></li>
                     <li><a href="index.html#contact" class="nav-link">Contact</a></li>
@@ -498,26 +556,28 @@
 
         <section class="section team" id="team">
             <ul class="animated-shapes">
-                <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+                <li></li><li></li><li></li><li></li><li></li><li></li>
             </ul>
             <div class="container">
                 <h2 class="section-title fade-in-left">OUR TEAM</h2>
+                <!-- President Section -->
+                <div class="president-section fade-in">
+                    <div class="president-card">
+                        <div class="president-img-container"><img src="galleryimg/President.jpeg" alt="Mehul Thapar"></div>
+                        <h3>Mehul Thapar</h3>
+                        <p class="post">President</p>
+                    </div>
+                    <div class="president-words">
+                        <h3>Words from the President</h3>
+                        <blockquote>
+                            "Leading SPADE has been an incredible journey of growth and collaboration. Our team is dedicated to pushing the boundaries of economic research and application. We strive to create a platform where ideas flourish and students are empowered to make a real-world impact. Die Trying."
+                        </blockquote>
+                    </div>
+                </div>
+
                 <div class="team-grid stagger-children">
                     
                     <!-- CORE TEAM MEMBERS -->
-                    <div class="team-card stagger-item" style="transition-delay: 0.1s;">
-                        <div class="team-card-inner">
-                            <div class="team-card-front">
-                                <div class="team-img-container"><img src="galleryimg/President.jpeg" alt="Mehul Thapar"></div>
-                                <div class="team-content"><h3>Mehul Thapar</h3><p class="post">President</p></div>
-                            </div>
-                            <div class="team-card-back">
-                                <blockquote>"Die Trying. ~Mehul Thappar"</blockquote>
-                                <a href="https://www.linkedin.com/in/mehulthapar?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" class="linkedin-btn"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="team-card stagger-item" style="transition-delay: 0.2s;">
                         <div class="team-card-inner">
                             <div class="team-card-front">
@@ -525,7 +585,7 @@
                                 <div class="team-content"><h3>Khushi Halder</h3><p class="post">Vice President</p></div>
                             </div>
                             <div class="team-card-back">
-                                <blockquote>"Die Trying. <br> ~ Mehul Thappar"</blockquote>
+                                <blockquote>"A quote about economics or leadership goes here."</blockquote>
                                 <a href="#" target="_blank" class="linkedin-btn"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
                             </div>
                         </div>
@@ -720,7 +780,7 @@
                 });
             }, { threshold: 0.1 });
 
-            document.querySelectorAll('.fade-in-left, .section-title, .stagger-children').forEach(el => {
+            document.querySelectorAll('.fade-in-left, .section-title, .stagger-children, .fade-in').forEach(el => {
                 animationObserver.observe(el);
             });
         });
