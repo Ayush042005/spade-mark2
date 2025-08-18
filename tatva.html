@@ -108,14 +108,12 @@
             margin-bottom: 1rem;
             line-height: 1.1;
             color: var(--white);
-            /* --- FIX: ADDED TEXT SHADOW --- */
             text-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
         }
         .hero-subtitle {
             font-size: 1.25rem;
             margin-bottom: 2rem;
             opacity: 0.9;
-             /* --- FIX: ADDED TEXT SHADOW --- */
             text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
         }
 
@@ -189,6 +187,32 @@
         }
         .edition-info p {
             margin-bottom: 2rem;
+        }
+        
+        /* --- NEW BUTTON STYLE --- */
+        .btn-read {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            background: var(--text-color);
+            color: var(--white);
+            box-shadow: var(--shadow-light);
+            border: none;
+            transition: all var(--transition-fast);
+            margin-bottom: 2rem;
+            font-size: 1rem;
+        }
+        .btn-read:hover {
+            background: var(--background-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(16, 25, 53, 0.2);
+        }
+        .btn-read i {
+            margin-right: 10px;
+            font-size: 1.1rem;
         }
 
         /* Accordion for articles */
@@ -306,7 +330,7 @@
 
             <div class="hero-content fade-in-up">
                 <h1 class="hero-title">Tatva</h1>
-                <p class="hero-subtitle" style="color: #646E68;">The Essence of Economic Thought</p>
+                <p class="hero-subtitle">The Essence of Economic Thought</p>
             </div>
             <div class="wave-divider">
                 <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
@@ -337,6 +361,10 @@
                         <h3>Edition 1: Neuroeconomics</h3>
                         <p>Our 2025 edition delves into the captivating field of Neuroeconomics. This issue features 20 student-authored articles that explore the neural underpinnings of decision-making, cognitive biases in financial markets, and the psychology behind our economic choices. Discover how brain activity shapes markets and individual behavior.</p>
                         
+                        <a href="#" class="btn-read" target="_blank">
+                            <i class="fas fa-book-open"></i> Read Now on Drive
+                        </a>
+
                         <button class="accordion-title">
                             View Published Articles <i class="fas fa-chevron-down icon"></i>
                         </button>
