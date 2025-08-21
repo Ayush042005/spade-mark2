@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=1200">
     <title>SPADE - Ace of Spade 2025</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -80,27 +80,7 @@
         }
         .nav-link:hover::before, .nav-link.active::before { width: 100%; left: 0; }
         .nav-link:hover, .nav-link.active { color: var(--primary-color); }
-        
-        /* --- OPTIMIZATION START: Hamburger Menu Icon Styling --- */
-        .nav-toggle { 
-            display: none; /* Hidden on desktop */
-            width: 30px;
-            height: 25px;
-            cursor: pointer;
-            z-index: 1100; /* Ensure it's on top */
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .nav-toggle span {
-            display: block;
-            width: 100%;
-            height: 3px;
-            background-color: var(--text-color);
-            border-radius: 3px;
-            transition: all 0.3s ease-in-out;
-        }
-        /* --- OPTIMIZATION END --- */
-
+        .nav-toggle { display: none; }
 
         /* --- ACE OF SPADE HERO SECTION --- */
         .hero {
@@ -121,31 +101,26 @@
         }
         
         .hero-content h1::before {
-            content: ''; 
+            content: '';
             position: absolute;
             left: 50%;
             top: 50%;
-            transform: translate(-50%, -50%); 
-            z-index: 1; 
+            transform: translate(-50%, -50%);
+            z-index: 1;
             
-            /* --- CUSTOMIZE YOUR IMAGE HERE --- */
-            background-image: url("D:/web designing and development/system check/IMG_6725 (1).JPEG"); /* <-- CHANGE THIS PATH */
+            background-image: url("D:/web designing and development/system check/IMG_6725 (1).JPEG");
             background-size: contain;
             background-repeat: no-repeat;
             
-            /* Adjust size and dimness */
-            width: 1000px;      /* <-- Adjust width */
-            height: 900px;     /* <-- Adjust height */
-            opacity: 0.15;     /* <-- Adjust dimness (0.1 is very dim, 1.0 is full color) */
+            width: 1000px;
+            height: 900px;
+            opacity: 0.15;
         }
 
         .hero-content p {
             font-size: 1.2rem;
             opacity: 0.9;
             margin-bottom: 1.5rem;
-            max-width: 600px; /* Added for better readability on wide screens */
-            margin-left: auto;
-            margin-right: auto;
         }
         .event-details {
             display: flex;
@@ -281,84 +256,8 @@
         /* Footer */
         .footer { text-align: center; padding: 2rem; background: var(--background-dark); color: #aaa; font-size: 0.9rem; }
         
-        /* --- OPTIMIZATION START: Mobile Responsive Styles --- */
-        @media screen and (max-width: 768px) {
-            /* Adjust general spacing for mobile */
-            .section {
-                padding: 60px 0;
-            }
-            .header .container {
-                padding: 0 15px; /* Reduce header padding */
-            }
+        /* REMOVED the entire @media block to disable responsive behavior */
 
-            /* --- Mobile Navigation --- */
-            .nav-toggle {
-                display: flex; /* Show hamburger icon */
-            }
-            .nav-list {
-                position: absolute;
-                top: 65px; /* Position below header */
-                right: 0;
-                width: 100%;
-                background-color: var(--white);
-                flex-direction: column;
-                align-items: center;
-                gap: 0;
-                overflow: hidden;
-                max-height: 0; /* Hide menu by default */
-                transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
-                box-shadow: var(--shadow-light);
-            }
-            .nav#nav-menu.active .nav-list { /* JS toggles '.active' on the nav element */
-                max-height: 500px; /* Animate menu opening */
-                padding: 1rem 0;
-            }
-            .nav-list li {
-                width: 100%;
-            }
-            .nav-link {
-                display: block;
-                padding: 1rem 0;
-            }
-            .nav-link::before {
-                bottom: 0.8rem; /* Adjust underline position */
-            }
-
-            /* --- Responsive Hero Section --- */
-            .hero {
-                padding-top: 120px;
-                padding-bottom: 60px;
-            }
-            .hero-content h1 {
-                font-size: 2.5rem; /* Reduce heading size */
-            }
-            .hero-content h1::before {
-                width: 90vw; /* Make background image responsive */
-                height: 75vw;
-                opacity: 0.1;
-            }
-            .hero-content p {
-                font-size: 1rem; /* Reduce paragraph size */
-            }
-            .event-details { 
-                flex-direction: column; 
-                gap: 1rem; 
-                align-items: center;
-            }
-
-            /* --- Responsive Titles --- */
-            .section-title {
-                font-size: 2rem;
-                margin-bottom: 3rem;
-            }
-
-            /* --- Responsive Timeline --- */
-            .timeline::after { left: 20px; }
-            .timeline-container { width: 100%; padding-left: 55px; padding-right: 15px; }
-            .timeline-container.right { left: 0%; }
-            .timeline-container.left::after, .timeline-container.right::after { left: 7.5px; }
-        }
-        /* --- OPTIMIZATION END --- */
     </style>
 </head>
 <body>
@@ -468,14 +367,12 @@
     </footer>
 
     <script>
-        // Basic script for mobile menu
         document.addEventListener('DOMContentLoaded', () => {
             const navToggle = document.getElementById('nav-toggle');
-            const navMenu = document.getElementById('nav-menu'); // This is the <nav> element
+            const navMenu = document.getElementById('nav-menu');
             if (navToggle && navMenu) {
                 navToggle.addEventListener('click', () => {
-                    // Toggles the 'active' class on the <nav> element
-                    navMenu.classList.toggle('active'); 
+                    navMenu.classList.toggle('active');
                 });
             }
         });
