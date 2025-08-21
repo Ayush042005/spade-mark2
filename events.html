@@ -186,6 +186,28 @@
             transform: translateX(-50%);
             border-radius: 2px;
         }
+        
+        /* --- NEW BUTTON STYLE --- */
+        .btn {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 0.8rem 2rem;
+            background-color: var(--primary-light-color);
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all var(--transition-fast);
+            border: 2px solid transparent;
+        }
+
+        .btn:hover {
+            background-color: transparent;
+            color: var(--white);
+            border-color: var(--primary-light-color);
+            transform: translateY(-3px);
+        }
+        /* --- END NEW BUTTON STYLE --- */
 
         /* Footer */
         .footer {
@@ -438,7 +460,6 @@
             </div>
         </section>
 
-        <!-- Events Content Section -->
         <section class="section events-section" id="events">
             <ul class="animated-shapes">
                 <li></li><li></li><li></li><li></li><li></li><li></li>
@@ -447,7 +468,6 @@
             <div class="container">
                 <h2 class="section-title fade-in-up">Our Events</h2>
                 
-                <!-- Ace of Spade Section -->
                 <div class="flagship-event fade-in-up">
                     <div class="flagship-content">
                         <span class="tag">Flagship Event</span>
@@ -458,10 +478,10 @@
                             <li><strong>Inflation Auction:</strong> A dynamic bidding challenge.</li>
                             <li><strong>Brand Wars:</strong> A creative battle of marketing prowess.</li>
                         </ul>
-                    </div>
+                        <a href="aceofspade.html" class="btn">Learn More</a>
+                        </div>
                 </div>
 
-                <!-- Other Events Section -->
                 <div class="other-events-grid">
                     <div class="event-card fade-in-up" style="transition-delay: 0.2s;">
                         <div class="event-card-img">
