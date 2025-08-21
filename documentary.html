@@ -9,12 +9,12 @@
     <link rel="icon" href="images/logospade.PNG" type="image/x-icon">
     <style>
         :root {
-            /* Theme variables from the original file */
+            /* Theme variables */
             --primary-color: #646E68;
-            --primary-light-color: #D1DEDE;  /* Light Blueish Gray */
+            --primary-light-color: #D1DEDE;
             --background-light: #FFFFFF;
-            --background-dark: #011638;      /* Deepest Blue */
-            --text-color: #101935;           /* Dark Blue */
+            --background-dark: #011638;
+            --text-color: #101935;
             --text-color-light: #646E68;
             --white: #FFFFFF;
             --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.05);
@@ -39,7 +39,7 @@
             font-family: 'Poppins', sans-serif;
             line-height: 1.6;
             color: var(--text-color-light);
-            background-color: #F8F9FA; /* A slightly off-white background */
+            background-color: #F8F9FA;
             overflow-x: hidden;
         }
 
@@ -195,8 +195,6 @@
             color: #aaa;
             font-size: 0.9rem;
         }
-
-        /* --- STYLES FOR DOCUMENTARY PAGE --- */
         
         /* Page Header with Wave SVG */
         .page-header {
@@ -300,17 +298,6 @@
             box-shadow: 0 15px 40px rgba(16, 25, 53, 0.1);
         }
 
-        .docu-card:nth-child(even) {
-            grid-template-columns: 1fr 2fr;
-        }
-        .docu-card:nth-child(even) .docu-thumbnail {
-            grid-column: 1;
-            grid-row: 1;
-        }
-        .docu-card:nth-child(even) .docu-content {
-            grid-column: 2;
-        }
-
         .docu-content h3 {
             font-size: 1.8rem;
             color: var(--text-color);
@@ -401,32 +388,34 @@
             .section { padding: 60px 0; }
             .section-title { font-size: 2rem; margin-bottom: 3rem; }
 
-            /* --- OPTIMIZED DOCUMENTARY CARD STYLES FOR MOBILE --- */
-            .docu-card, .docu-card:nth-child(even) {
-                grid-template-columns: 1fr; /* Single column layout */
-                padding: 1.5rem; /* Reduced padding for smaller screens */
-                gap: 1.5rem; /* Adjusted gap between thumbnail and content */
+            /* Mobile Card Styles */
+            .docu-card {
+                grid-template-columns: 1fr;
+                padding: 1.5rem;
+                gap: 1.5rem;
             }
-             .docu-card:nth-child(even) .docu-thumbnail {
-                grid-column: 1;
+            .docu-thumbnail {
                 grid-row: 1; /* Ensures image is always on top */
+            }
+            .docu-content {
+                grid-row: 2; /* Ensures content is always below */
             }
 
             .docu-content h3 {
-                font-size: 1.5rem; /* Slightly smaller heading for mobile */
+                font-size: 1.5rem;
             }
 
             .docu-content .description {
-                font-size: 0.95rem; /* Adjusted font size for readability */
+                font-size: 0.95rem;
                 margin-bottom: 1.25rem;
             }
 
             .docu-content .speaker-info {
-                padding: 0.8rem; /* Tighter padding */
+                padding: 0.8rem;
             }
 
             .docu-content .speaker-info h4 {
-                font-size: 1rem; /* Adjusted speaker name size */
+                font-size: 1rem;
             }
         }
     </style>
@@ -491,9 +480,6 @@
                     </div>
 
                     <div class="docu-card fade-in-up">
-                         <a href="https://www.youtube.com/" target="_blank" class="docu-thumbnail">
-                            <img src="https://placehold.co/600x400/646E68/FFFFFF?text=Digital+Divide" alt="Thumbnail for The Digital Divide">
-                        </a>
                         <div class="docu-content">
                             <h3>The Digital Divide</h3>
                             <p class="description">This film investigates the gap between those who have access to modern information and communication technology and those who don't.</p>
@@ -502,6 +488,9 @@
                                 <p>Founder of Hive School, discussing the implications of digital inequality on education and economic mobility.</p>
                             </div>
                         </div>
+                        <a href="https://www.youtube.com/" target="_blank" class="docu-thumbnail">
+                            <img src="https://placehold.co/600x400/646E68/FFFFFF?text=Digital+Divide" alt="Thumbnail for The Digital Divide">
+                        </a>
                     </div>
 
                     <div class="docu-card fade-in-up">
@@ -519,9 +508,6 @@
                     </div>
 
                      <div class="docu-card fade-in-up">
-                         <a href="https://www.youtube.com/" target="_blank" class="docu-thumbnail">
-                            <img src="https://placehold.co/600x400/D1DEDE/101935?text=Urban+Housing" alt="Thumbnail for The Urban Housing Crisis">
-                        </a>
                         <div class="docu-content">
                             <h3>The Urban Housing Crisis</h3>
                             <p class="description">Examining the economic forces driving up housing costs in major cities and the social consequences for residents.</p>
@@ -530,6 +516,9 @@
                                 <p>Founder of Pizza Galleria, offering a business perspective on urban development and commercial real estate pressures.</p>
                             </div>
                         </div>
+                        <a href="https://www.youtube.com/" target="_blank" class="docu-thumbnail">
+                            <img src="https://placehold.co/600x400/D1DEDE/101935?text=Urban+Housing" alt="Thumbnail for The Urban Housing Crisis">
+                        </a>
                     </div>
 
                      <div class="docu-card fade-in-up">
