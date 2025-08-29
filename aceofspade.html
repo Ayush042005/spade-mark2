@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=1200">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SPADE - Ace of Spade 2025</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -96,26 +96,30 @@
             color: var(--white);
             text-shadow: 0 3px 10px rgba(0,0,0,0.5);
             margin-bottom: 0.5rem;
-            position: relative;
-            z-index: 2;
+            position: relative; /* MODIFIED: Added to position the pseudo-element correctly */
+            z-index: 2; /* MODIFIED: Ensures text is on top of the image */
         }
         
+        /* --- NEW CODE START: This block adds the image behind the H1 heading --- */
         .hero-content h1::before {
-            content: '';
+            content: ''; /* Required for pseudo-elements */
             position: absolute;
             left: 50%;
             top: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 1;
+            transform: translate(-50%, -50%); /* Centers the image */
+            z-index: 1; /* Puts the image behind the text */
             
-            background-image: url("D:/web designing and development/system check/IMG_6725 (1).JPEG");
+            /* --- CUSTOMIZE YOUR IMAGE HERE --- */
+            background-image: url("D:/web designing and development/system check/IMG_6725 (1).JPEG"); /* <-- CHANGE THIS PATH */
             background-size: contain;
             background-repeat: no-repeat;
             
-            width: 1000px;
-            height: 900px;
-            opacity: 0.15;
+            /* Adjust size and dimness */
+            width: 1000px;       /* <-- Adjust width */
+            height: 900px;      /* <-- Adjust height */
+            opacity: 0.15;      /* <-- Adjust dimness (0.1 is very dim, 1.0 is full color) */
         }
+        /* --- NEW CODE END --- */
 
         .hero-content p {
             font-size: 1.2rem;
@@ -256,7 +260,14 @@
         /* Footer */
         .footer { text-align: center; padding: 2rem; background: var(--background-dark); color: #aaa; font-size: 0.9rem; }
         
-        /* REMOVED the entire @media block to disable responsive behavior */
+        /* Responsive */
+        @media screen and (max-width: 768px) {
+            .timeline::after { left: 20px; }
+            .timeline-container { width: 100%; padding-left: 55px; padding-right: 15px; }
+            .timeline-container.right { left: 0%; }
+            .timeline-container.left::after, .timeline-container.right::after { left: 7.5px; }
+            .event-details { flex-direction: column; gap: 1rem; align-items: center;}
+        }
 
     </style>
 </head>
@@ -367,6 +378,7 @@
     </footer>
 
     <script>
+        // Basic script for mobile menu
         document.addEventListener('DOMContentLoaded', () => {
             const navToggle = document.getElementById('nav-toggle');
             const navMenu = document.getElementById('nav-menu');
