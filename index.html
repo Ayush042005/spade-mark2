@@ -510,6 +510,18 @@
         .sponsor-logo:nth-child(4) { animation-delay: 3s; }
         .sponsor-logo:hover { filter: grayscale(0%); transform: scale(1.1); opacity: 1; animation-play-state: paused; }
         .sponsor-logo img { max-width: 120px; height: auto; }
+        .sponsor-name {
+            margin-top: 0.75rem; /* Adds space between the logo and the name */
+            font-size: 0.9rem;
+            text-align: center; /* Centers the text under the logo */
+            font-weight: 600;
+            color: var(--text-color-light); /* Uses your theme's text color */
+            transition: color var(--transition-fast);
+        }
+
+        .sponsor-logo:hover .sponsor-name {
+            color: var(--primary-color); /* Changes color on hover to match the logo effect */
+        }
         
         @keyframes float {
             0% { transform: translateY(0px); }
@@ -873,14 +885,14 @@
             <div class="container">
                 <h2 class="section-title fade-in-left">Past Sponsors</h2>
                 <div class="sponsors-grid stagger-children">
-                    <div class="sponsor-logo stagger-item" style="transition-delay: 0.1s;"><img src="sponsors/ditto.png" alt="Ditto Insurance Logo"></div>
-                    <div class="sponsor-logo stagger-item" style="transition-delay: 0.2s;"><img src="sponsors/campusdiary.png" alt="Campus Diary Logo"></div>
-                    <div class="sponsor-logo stagger-item" style="transition-delay: 0.3s;"><img src="sponsors/interviewbuddy.png" alt="Interview Buddy Logo"></div>
-                    <div class="sponsor-logo stagger-item" style="transition-delay: 0.4s;"><img src="sponsors/dubuddies.png" alt="DU Buddies Logo"></div>
-                    <div class="sponsor-logo stagger-item" style="transition-delay: 0.5s;"><img src="sponsors/unstop.png" alt="Unstop Logo"></div>
-                    <div class="sponsor-logo stagger-item" style="transition-delay: 0.6s;"><img src="sponsors/thehiddenhour.png" alt="The Hidden Hour Logo"></div>
-                    <div class="sponsor-logo stagger-item" style="transition-delay: 0.7s;"><img src="sponsors/startupnews.png" alt="StartupNews Fyi Logo"></div>
-                    <div class="sponsor-logo stagger-item" style="transition-delay: 0.8s;"><img src="sponsors/rageroom.png" alt="Rage Room Logo"></div>
+                    <div class="sponsor-logo stagger-item" style="transition-delay: 0.1s;"><img src="sponsors/ditto.png" alt="Ditto Insurance Logo"><p class="sponsor-name">Ditto</p></div>
+                    <div class="sponsor-logo stagger-item" style="transition-delay: 0.2s;"><img src="sponsors/campusdiary.png" alt="Campus Diary Logo"><p class="sponsor-name">campus diary</p></div>
+                    <div class="sponsor-logo stagger-item" style="transition-delay: 0.3s;"><img src="sponsors/interviewbuddy.png" alt="Interview Buddy Logo"><p class="sponsor-name">Interview Buddy</p></div>
+                    <div class="sponsor-logo stagger-item" style="transition-delay: 0.4s;"><img src="sponsors/dubuddies.png" alt="DU Buddies Logo"><p class="sponsor-name">DU Buddies</p></div>
+                    <div class="sponsor-logo stagger-item" style="transition-delay: 0.5s;"><img src="sponsors/unstop.png" alt="Unstop Logo"><p class="sponsor-name">Unstop</p></div>
+                    <div class="sponsor-logo stagger-item" style="transition-delay: 0.6s;"><img src="sponsors/thehiddenhour.png" alt="The Hidden Hour Logo"><p class="sponsor-name">The Hidden Hour</p></div>
+                    <div class="sponsor-logo stagger-item" style="transition-delay: 0.7s;"><img src="sponsors/startupnews.png" alt="StartupNews Fyi Logo"><p class="sponsor-name">StartupNews Fyi</p></div>
+                    <div class="sponsor-logo stagger-item" style="transition-delay: 0.8s;"><img src="sponsors/rageroom.png" alt="Rage Room Logo"><p class="sponsor-name">Rage Room</p></div>
                 </div>
             </div>
         </section>
