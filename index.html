@@ -455,8 +455,10 @@
             border-radius: calc(var(--border-radius) - 0.5rem);
             margin-bottom: 1.5rem;
             box-shadow: var(--shadow-light);
+            /* ADD THIS LINE 👇 */
+            height: 250px;
         }
-        .pub-card img { width: 100%; max-width: 250px; display: block; transition: transform 0.5s ease; }
+        .pub-card img {width: 100%; height: 100%; display: block;transition: transform 0.5s ease; object-fit: cover; max-width: none;}
         .pub-card:hover img { transform: scale(1.05); }
         .pub-card h3 { font-size: 1.5rem; margin-bottom: 1rem; color: var(--primary-color); }
         .tag { background: var(--primary-color); color: var(--white); padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin-bottom: 1.5rem; display: inline-block; }
