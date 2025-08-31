@@ -177,12 +177,17 @@
         /* --- END: UPDATED HEADER & NAVIGATION --- */
 
 
-        /* --- ACE OF SPADE HERO SECTION --- */
+        /* --- ACE OF SPADE HERO SECTION (MODIFIED) --- */
         .hero {
             padding-top: 150px;
             padding-bottom: 80px;
-            background: linear-gradient(135deg, var(--text-color) 0%, var(--background-dark) 100%);
-            background-image: url("images/aceofspade.img.JPG")
+            /* --- MODIFICATION START --- */
+            background-image: url("images/aceofspade.img.jpg"); /* Path to your new image */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.4); /* Dark overlay for text readability */
+            /* --- MODIFICATION END --- */
             color: var(--white);
             text-align: center;
             position: relative;
@@ -197,19 +202,8 @@
         }
         
         .hero-content h1::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            top: 85%;
-            transform: translate(-50%, -50%);
-            z-index: 1;
-            background-image: url('images/aceofspade.img.JPG'); /* <-- CHANGED PATH */
-            background-size: contain;
-            background-position: center;
-            background-repeat: no-repeat;
-            width: 1390px; /* <-- ADJUSTED WIDTH */
-            height: 800px; /* <-- ADJUSTED HEIGHT */
-            opacity: 0.35;
+            /* --- MODIFICATION: This block is now hidden --- */
+            display: none;
         }
 
         .hero-content p {
@@ -359,10 +353,6 @@
             }
             .hero-content h1 {
                 font-size: 2.8rem;
-            }
-            .hero-content h1::before {
-                width: 100%;
-                height: 400px;
             }
             .hero-content p {
                 font-size: 1.1rem;
